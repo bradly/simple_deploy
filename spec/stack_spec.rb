@@ -17,12 +17,11 @@ describe SimpleDeploy do
                          and_return @config_stub
     @stack = SimpleDeploy::Stack.new :environment => 'test-env',
                                      :name        => 'test-stack',
-                                     :logger      => 'my-logger',
-                                     :config      => @config_stub
+                                     :logger      => 'my-logger'
 
     @main_attributes = {
       'chef_repo_bucket_prefix' => 'test-prefix',
-      'chef_repo_domain' => 'test-domain' 
+      'chef_repo_domain' => 'test-domain'
     }
 
     @stack_mock = mock 'stackster stack'
@@ -31,6 +30,17 @@ describe SimpleDeploy do
       { 'chef_repo' => 'test123' },
       { 'CookBooksURL' => 's3://test-prefix-us-west-1/test-domain/test123.tar.gz' }
     ]
+  end
+
+  describe 'new' do
+    it 'should accept a config object as an argument' do
+      SimpleDeploy::Config.should_not_receive(:new)
+      SimpleDeploy::Stack.new :environment => 'test-env',
+                              :name        => 'test-stack',
+                              :logger      => 'my-logger',
+                              :config      => @config_stub
+
+    end
   end
 
   describe "creating a stack" do
