@@ -79,7 +79,7 @@ module SimpleDeploy
     end
 
     def instances
-      stack.instances.map do |instance| 
+      stack.instances.map do |instance|
         instance['instancesSet'].map do |info|
           if info['vpcId'] || @use_internal_ips
             info['privateIpAddress']
@@ -95,17 +95,17 @@ module SimpleDeploy
     end
 
     def attributes
-      stack.attributes 
+      stack.attributes
     end
 
     def parameters
-      stack.parameters 
+      stack.parameters
     end
 
     def template
       JSON.parse stack.template
     end
-    
+
     private
 
     def stack
@@ -115,7 +115,7 @@ module SimpleDeploy
                                       :config      => stackster_config,
                                       :logger      => @logger
     end
-    
+
     def stack_attribute_formater
       @saf ||= StackAttributeFormater.new :config      => @config,
                                           :environment => @environment,
