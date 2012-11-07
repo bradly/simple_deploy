@@ -38,7 +38,7 @@ module SimpleDeploy
       when 'deploy'
         CLI::Deploy.new.deploy
       when 'environments'
-        CLI::List.new.environments
+        CLI::Environments.new.environments
       when 'events'
         CLI::Events.new.show
       when 'execute'

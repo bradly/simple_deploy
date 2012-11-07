@@ -3,7 +3,8 @@ require 'trollop'
 module SimpleDeploy
   module CLI
     class List
-      def stacks
+
+      def stacks(args={})
         opts = Trollop::options do
           version SimpleDeploy::VERSION
           banner <<-EOS
@@ -22,18 +23,18 @@ EOS
         CLI::Shared.valid_options? :provided => opts,
                                    :required => [:environment]
 
-        config = Config.new.environment opts[:environment]
-        stacks = Stackster::StackLister.new(:config => config).all.sort
+        @environment  = opts[:environment]
+        @stack_lister = args.fetch(:stack_lister) { stack_lister }
 
-        logger = SimpleDeployLogger.new :log_level => opts[:log_level]
+        puts stack_lister.list
+      end
 
-        stack = Stack.new :environment => opts[:environment],
-                          :name        => opts[:name],
-                          :config      => config,
-                          :logger      => logger
-        puts stacks
+      private
+      def stack_lister
+        @stack_lister ||= SimpleDeploy::StackLister.new :environment => @environment
       end
 
     end
+
   end
 end

@@ -1,6 +1,7 @@
 require 'simple_deploy/config'
 require 'simple_deploy/artifact'
 require 'simple_deploy/stack'
+require 'simple_deploy/stack_lister'
 require 'simple_deploy/notifier'
 require 'simple_deploy/logger'
 require 'simple_deploy/version'
