@@ -14,7 +14,7 @@ simple_deploy list -e ENVIRONMENT
 
 EOS
           opt :environment, "Set the target environment", :type => :string
-          opt :log_level, "Log level:  debug, info, warn, error", :type    => :string,                                          
+          opt :log_level, "Log level:  debug, info, warn, error", :type    => :string,
                                                                   :default => 'info'
           opt :help, "Display Help"
         end
