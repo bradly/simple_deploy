@@ -1,4 +1,4 @@
-require 'tinder'
+require 'esbit'
 
 module SimpleDeploy
   class Notifier
@@ -18,8 +18,7 @@ module SimpleDeploy
 
         if @subdomain
           @token = @config.notifications['campfire']['token']
-          @campfire = Tinder::Campfire.new @subdomain, :token => @token,
-                                                       :ssl_options => { :verify => false }
+          @campfire = Esbit::Campfire.new @subdomain, @token
         end
       end
 
@@ -28,7 +27,7 @@ module SimpleDeploy
         @room_ids.split(',').each do |room_id|
           @logger.debug "Sending notification to Campfire room #{room_id}."
           room = @campfire.find_room_by_id room_id.to_i
-          room.speak message
+          room.say message
         end
         @logger.info "Campfire notifications complete."
       end
